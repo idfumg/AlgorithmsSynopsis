@@ -1,0 +1,36 @@
+graphs:
+
+1) bfs
+2) dfs
+3) is_dag? where dag used?
+
+greedy:
+
+1) interval planning
+2) interval planning with weigths
+3) interval planning with time limit
+
+numbers:
+1) how much digits needed to write number N in number system with base b?
+999 = 10**3 - 1
+99 = 10**2 - 1
+99 + 1 = 10**2
+log(N + 1, b)
+100 = 10**2
+ceil(log(100+1, 10)) == 3
+
+How digits count will change when convert base from b to a?
+log(N, b) = log(N, a) / log(b, a)
+
+
+1) gcd
+2) gcm
+3) двоичное число в дополнительном коде (может быть "такое что, его сумма с текущим будет равно 0."
+   и на выходе - строка.
+
+
+
+
+1) recursive merge sort
+2) iterative merge sort
+3) recursive find k element of array by value without sorting
