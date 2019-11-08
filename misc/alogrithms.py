@@ -1,3 +1,13 @@
+# число - степень двойки.
+i & (i - 1) == 0
+
+
+# наибольший общий делитель.
+def gcd(a, b):
+    while a:
+        a, b = b % a, a
+    return b
+
 def reverse_number(n):
     rev = 0
     while n > 0:
@@ -19,7 +29,7 @@ def number_digits_count2(n):
 def number_bits_count(n):
     import math
     return math.floor(math.log(n, 2) + 1)
-    
+
 def rotate_number(n):
     import math
     length = math.floor(math.log(n, 10) + 1)

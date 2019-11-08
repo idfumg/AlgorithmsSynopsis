@@ -59,6 +59,14 @@ int max(int arr[], int l, int r) {
         assert(search_func(arr, 0, size-1, 7) == 6);    \
     } while(0);
 
+#define run_count(count_func)                           \
+    do {                                                \
+        int arr[] {1, 2, 2, 3, 3, 3, 4, 5, 7, 10, 99};  \
+        int size = sizeof(arr) / sizeof(arr[0]);        \
+        std::sort(arr, arr + size);                     \
+        assert(count_func(arr, size, 3) == 3);          \
+    } while(0);
+
 /*******************************************************************************
  * SEARCH FUNCTIONS
 *******************************************************************************/
@@ -264,6 +272,51 @@ void sort_bucket(double arr[], int l, int r) {
             arr[k++] = buckets[i][j];
 }
 
+/*******************************************************************************
+ * COUNT FUNCTIONS
+*******************************************************************************/
+
+int first(int arr[], int l, int r, int key) {
+    while (l <= r) {
+        int mid = l + (r - l) / 2;
+
+        if (arr[mid] == key and (arr[mid - 1] < key or mid == 0))
+            return mid;
+
+        if (arr[mid] < key)
+            l = mid + 1;
+        else
+            r = mid - 1;
+    }
+    return -1;
+}
+
+int last(int arr[], int l, int r, int key) {
+    int size = r;
+    while (l <= r) {
+        int mid = l + (r - l) / 2;
+
+        if (arr[mid] == key and (arr[mid + 1] > key or mid == size - 1))
+            return mid;
+
+        if (arr[mid] < key)
+            l = mid + 1;
+        else
+            r = mid - 1;
+    }
+    return -1;
+}
+
+int count(int arr[], int size, int key) {
+    int i = first(arr, 0, size - 1, key);
+    if (i == -1)
+        return i;
+
+    int j = last(arr, 0, size - 1, key);
+
+    return j - i + 1;
+}
+
 int main() {
     run_search(search_linear);
     run_search(search_binary_recursive);
@@ -279,4 +332,6 @@ int main() {
     run_count_sort(sort_counting);
     run_sort(sort_radix);
     run_bucket_sort(sort_bucket);
+
+    run_count(count);
 }

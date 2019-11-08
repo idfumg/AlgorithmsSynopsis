@@ -6,18 +6,21 @@
 #include <ctime>
 #include <vector>
 
-std::string to_postfix(const std::string& infix) {
-    std::map<char, short> prec = {
+static std::string to_postfix(const std::string& infix)
+{
+    static const std::map<char, short> prec = {
         { '^', 4 },
         { '*', 3 },
         { '/', 3 },
         { '+', 2 },
         { '-', 2 },
-        { '(', 1 }
+        { '(', 1 },
     };
+
     std::string postfix;
     std::stack<char> ops;
-    for (auto&& token : infix) {
+
+    for (auto token : infix) {
         if (isdigit(token)) {
             postfix += token;
         }
@@ -32,25 +35,24 @@ std::string to_postfix(const std::string& infix) {
             ops.pop();
         }
         else {
-            while (not ops.empty() and prec[ops.top()] >= prec[token]) {
+            while (not ops.empty() and (not token or (prec.at(ops.top()) >= prec.at(token)))) {
                 postfix += ops.top();
                 ops.pop();
             }
             ops.push(token);
         }
     }
+
     while (not ops.empty()) {
         postfix += ops.top();
         ops.pop();
     }
-    while (not ops.empty()) {
-        postfix += ops.top();
-        ops.pop();
-    }
+
     return postfix;
 }
 
-std::vector<int> gen_random(int n) {
+static std::vector<int> gen_random(int n)
+{
     std::srand(unsigned(std::time(0)));
     std::vector<int> numbers;
     for (int i=0; i<n; ++i)
@@ -59,13 +61,15 @@ std::vector<int> gen_random(int n) {
 }
 
 template <class ...Args>
-std::string gen_infix(const std::string& fmt, Args&& ...args) {
+static std::string gen_infix(const std::string& fmt, Args&& ...args)
+{
     std::vector<char> buf(fmt.size());
     snprintf(&buf[0], buf.size(), fmt.c_str(), args...);
     return std::string(buf.begin(), buf.end());
 }
 
-int main() {
+int main()
+{
     assert(to_postfix("2+7*5") == "275*+");
     {
         auto nums = gen_random(3);

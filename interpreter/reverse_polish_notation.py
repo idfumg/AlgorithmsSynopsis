@@ -1,3 +1,7 @@
+'''
+Reverse Polish Notation algorithm
+'''
+
 def rpn(expr):
     PREC = {
         '^': 4,
@@ -14,16 +18,16 @@ def rpn(expr):
     for token in expr:
         if token.isdigit():
             postfix.append(token)
-            
+
         elif token == '(':
             ops.append(token)
-            
+
         elif token == ')':
             op = ops.pop()
             while op != '(':
                 postfix.append(op)
                 op = ops.pop()
-                
+
         else:
             while len(ops) > 0 and PREC[ops[-1]] >= PREC[token]:
                 postfix.append(ops.pop())
