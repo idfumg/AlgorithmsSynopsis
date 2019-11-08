@@ -72,7 +72,7 @@ int max(int arr[], int l, int r) {
 *******************************************************************************/
 
 int search_linear(int arr[], int l, int r, int key) {
-    for (int i = l; i <= r; i++)
+    for (int i = l; i <= r; ++i)
         if (arr[i] == key)
             return i;
     return -1;
@@ -105,6 +105,10 @@ int search_binary_iterative(int arr[], int l, int r, int key) {
     }
     return -1;
 }
+
+/*
+The Interpolation Search is an improvement over Binary Search for instances, where the values in a sorted array are uniformly distributed.
+*/
 
 int search_interpolation(int arr[], int l, int r, int key) {
     while (l <= r) {
@@ -292,29 +296,24 @@ int first(int arr[], int l, int r, int key) {
 }
 
 int last(int arr[], int l, int r, int key) {
-    int size = r;
-    while (l <= r) {
-        int mid = l + (r - l) / 2;
-
-        if (arr[mid] == key and (arr[mid + 1] > key or mid == size - 1))
-            return mid;
-
-        if (arr[mid] < key)
-            l = mid + 1;
-        else
-            r = mid - 1;
+    int count = 0;
+    for (int i = l; i <= r; i++) {
+        if (arr[i] != key) {
+            break;
+        }
+        ++count;
     }
-    return -1;
+    return count;
 }
 
 int count(int arr[], int size, int key) {
     int i = first(arr, 0, size - 1, key);
-    if (i == -1)
+
+    if (i == -1) {
         return i;
+    }
 
-    int j = last(arr, 0, size - 1, key);
-
-    return j - i + 1;
+    return last(arr, i, size - 1, key);
 }
 
 int main() {
