@@ -106,7 +106,7 @@ void delete_node_with_key(Node** head, int key) {
 
     Node* current = *head;
     Node* prev = nullptr;
-    
+
     while (current) {
         if (current->data == key) {
             prev->next = current->next;
@@ -133,7 +133,7 @@ void delete_node_in_position(Node** head, int pos) {
         current = current->next;
         count++;
     }
-    
+
     prev->next = current->next;
     delete current;
 }
@@ -149,7 +149,7 @@ void find_list_length_iterative(Node** head) {
 
 int find_list_length_recursive_(Node** head) {
     static int length = 0;
-    
+
     if (not *head)
         return 0;
 
@@ -193,7 +193,7 @@ void swap_pair(Node** head, int first_data, int second_data) {
         *head = second;
     else
         prev_first->next = second;
-    
+
     second->next = first->next;
 
     prev_second->next = first;
@@ -227,7 +227,7 @@ Node* find_list_node_by_key(Node** head, int key) {
     Node* current = *head;
     while (current and current->data != key)
         current = current->next;
-    
+
     if (current)
         std::cout << "[" << current << "] -> ";
 
@@ -269,7 +269,7 @@ void reverse_list(Node** head) {
     Node* current = *head;
     Node* next = nullptr;
 
-    while(current) {
+    while (current) {
         next = current->next;
         current->next = prev;
         prev = current;
@@ -302,7 +302,7 @@ void detect_loop(Node** head) {
     while (slow and fast and fast->next) {
         fast = fast->next->next;
         slow = slow->next;
-        
+
         if (fast == slow) {
             std::cout << "[loop in element " << slow->data
                       << " to element " << slow->next->data << "] -> ";
@@ -320,10 +320,10 @@ void find_duplicates(Node** head) {
         while (node) {
             if (node->data == current->data)
                 std::cout << "found " << node->data << "! -> ";
-            
+
             node = node->next;
         }
-        
+
         current = current->next;
     }
 }
@@ -331,15 +331,15 @@ void find_duplicates(Node** head) {
 void remove_duplicates(Node** head) {
     Node* current = *head;
     Node* prev = nullptr;
-    
+
     while (current) {
         Node* node = current->next;
         prev = current;
-        
+
         while (node) {
             if (node->data == current->data) {
                 prev->next = node->next;
-                
+
                 Node* temp = node;
                 node = node->next;
                 delete temp;
@@ -349,7 +349,7 @@ void remove_duplicates(Node** head) {
                 prev = prev->next;
             }
         }
-        
+
         current = current->next;
     }
 }
@@ -412,6 +412,6 @@ int main() {
     test_function(find_duplicates);
     test_function(remove_duplicates);
     test_function(detect_and_remove_loop);
-    
+
     return 0;
 }

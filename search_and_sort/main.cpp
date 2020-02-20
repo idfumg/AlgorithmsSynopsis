@@ -151,17 +151,15 @@ void sort_selection(int arr[], int l, int r) {
         for (int j = i; j <= r; j++)
             if (arr[j] < arr[min])
                 min = j;
-        swap(arr[min], arr[i]);
+        if (min != i)
+            swap(arr[min], arr[i]);
     }
 }
 
 void sort_insertion(int arr[], int l, int r) {
     for (int i = l; i <= r; i++)
-        for (int j = i; j > 0; j--)
-            if (arr[j - 1] > arr[j])
-                swap(arr[j - 1], arr[j]);
-            else
-                break;
+        for (int j = i; j > 0 and arr[j - 1] > arr[j]; j--)
+            swap(arr[j - 1], arr[j]);
 }
 
 void merge(int arr[], int l, int mid, int r) {
@@ -199,6 +197,7 @@ void sort_merge(int arr[], int l, int r) {
     merge(arr, l, mid, r);
 }
 
+// https://en.wikipedia.org/wiki/Quicksort#Algorithm
 int partition(int arr[], int l, int r) {
     int key = arr[r];
     int i = l - 1;
